@@ -1,6 +1,5 @@
 
 fun main() {
-    var choice: String? = ""
     val library = Library()
 
     while(true){
@@ -13,9 +12,19 @@ fun main() {
         println("6. Вернуть книгу")
         println("7. Показать все книги")
         println("8. Выход")
-        choice = readLine()
+        var choice: Int = try{
+            readLine()?.toInt() ?: -1
+        } catch(e: NumberFormatException){
+            println("Введите число")
+            continue
+        }
 
-        when(choice?.toInt() ?: 8){
+        if(choice <= 0 || choice > 8){
+            println("Введите число от 1 до 8")
+            continue
+        }
+
+        when(choice){
             1 -> library.addBook()
             2 -> library.addACustomer()
             3 -> library.findBookByName()
